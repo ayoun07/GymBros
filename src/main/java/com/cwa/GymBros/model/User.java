@@ -30,11 +30,11 @@ public class User {
     @Column(nullable = false)
     private Sex sex;
 
-    @Column(nullable = false, unique = true)
-    private String phone;
+    @Column(nullable = false)
+    private Integer phone;
 
     @Column(name = "address", nullable = false)
-    private String address;
+    private String adress;
 
     @Column(nullable = false)
     private String password; 
@@ -57,8 +57,6 @@ public class User {
     @Column(nullable = false)
     private LocalDate birthdate;
 
-    public User() {
-    }
 
     public Long getId() {
         return this.id;
@@ -100,20 +98,20 @@ public class User {
         this.sex = sex;
     }
 
-    public String getPhone() {
+    public Integer getPhone() {
         return this.phone;
     }
 
-    public void setPhone(String phone) {
+    public void setPhone(Integer phone) {
         this.phone = phone;
     }
 
-    public String getAddress() {
-        return this.address;
+    public String getAdress() {
+        return this.adress;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setAdress(String adress) {
+        this.adress = adress;
     }
 
     public String getPassword() {
