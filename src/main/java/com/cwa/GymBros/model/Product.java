@@ -1,5 +1,6 @@
 package com.cwa.GymBros.model;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -22,17 +23,17 @@ public class Product {
     private String description;
 
     @Column(nullable = false)
-    private Double price;
+    private BigDecimal price;
 
     @Column(nullable = false)
-    private Double stock;
+    private Integer stock;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Type type;
 
     @Column(nullable = false)
-    private String image_url;
+    private String imageUrl;
 
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
@@ -67,19 +68,19 @@ public class Product {
         this.description = description;
     }
 
-    public Double getPrice() {
+    public BigDecimal getPrice() {
         return this.price;
     }
 
-    public void setPrice(Double price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
-    public Double getStock() {
+    public Integer getStock() {
         return this.stock;
     }
 
-    public void setStock(Double stock) {
+    public void setStock(Integer stock) {
         this.stock = stock;
     }
 
@@ -91,12 +92,12 @@ public class Product {
         this.type = type;
     }
 
-    public String getImage_url() {
-        return this.image_url;
+    public String getImageUrl() {
+        return this.imageUrl;
     }
 
-    public void setImage_url(String image_url) {
-        this.image_url = image_url;
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public LocalDateTime getCreatedAt() {

@@ -1,5 +1,6 @@
 package com.cwa.GymBros.model;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -19,10 +20,10 @@ public class Order {
     private LocalDateTime date_order;
 
     @Column(nullable = false)
-    private Double total;
+    private BigDecimal total;
 
     @Column(nullable = false)
-    private Double quantity;
+    private Integer quantity;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -35,6 +36,10 @@ public class Order {
     @UpdateTimestamp
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
 
     public Long getId() {
@@ -53,19 +58,19 @@ public class Order {
         this.date_order = date_order;
     }
 
-    public Double getTotal() {
+    public BigDecimal getTotal() {
         return this.total;
     }
 
-    public void setTotal(Double total) {
+    public void setTotal(BigDecimal total) {
         this.total = total;
     }
 
-    public Double getQuantity() {
+    public Integer getQuantity() {
         return this.quantity;
     }
 
-    public void setQuantity(Double quantity) {
+    public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
 
@@ -92,5 +97,14 @@ public class Order {
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
+
+    public User getUser() {
+        return this.user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
 
 }

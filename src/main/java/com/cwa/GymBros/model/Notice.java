@@ -1,6 +1,5 @@
 package com.cwa.GymBros.model;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -8,18 +7,19 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import jakarta.persistence.*;
 
-
-
 @Entity
-@Table(name="cart")
-public class Cart {
+@Table(name = "notice")
+public class Notice {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
-    private BigDecimal price;
+    private Integer rating;
+
+    @Column(nullable = false)
+    private String title;
 
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
@@ -37,10 +37,6 @@ public class Cart {
     @JoinColumn(name = "product_id", nullable = false)
     private Product product;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "order_id")
-    private Order order;
-
 
     public Long getId() {
         return this.id;
@@ -50,12 +46,20 @@ public class Cart {
         this.id = id;
     }
 
-    public BigDecimal getPrice() {
-        return this.price;
+    public Integer getRating() {
+        return this.rating;
     }
 
-    public void setPrice(BigDecimal price) {
-        this.price = price;
+    public void setRating(Integer rating) {
+        this.rating = rating;
+    }
+
+    public String getTitle() {
+        return this.title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public LocalDateTime getCreatedAt() {
@@ -90,12 +94,5 @@ public class Cart {
         this.product = product;
     }
 
-    public Order getOrder() {
-        return this.order;
-    }
-
-    public void setOrder(Order order) {
-        this.order = order;
-    }
 
 }
