@@ -2,6 +2,8 @@ package com.cwa.GymBros.model;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -32,8 +34,10 @@ public class Product {
     @Column(nullable = false)
     private Type type;
 
-    @Column(nullable = false)
-    private String imageUrl;
+    @ElementCollection
+    @CollectionTable(name = "product_images", joinColumns = @JoinColumn(name = "product_id"))
+    @Column(name = "image_url")
+    private List<String> imageUrls = new ArrayList<>();
 
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
@@ -92,12 +96,12 @@ public class Product {
         this.type = type;
     }
 
-    public String getImageUrl() {
-        return this.imageUrl;
+    public List<String> getImageUrls() {
+        return this.imageUrls;
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public void setImageUrls(List<String> imageUrls) {
+        this.imageUrls = imageUrls;
     }
 
     public LocalDateTime getCreatedAt() {
