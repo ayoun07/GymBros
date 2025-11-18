@@ -43,9 +43,9 @@ function Home() {
           />
         </div>
       </section>
-      <section className="gap-4 flex flex-col mb-16">
-        <h2 className="text-3xl font-medium">Nutrition </h2>
-        <div className="rounded-2xl p-4 h-fit shadow-xl bg-[#f8f7f4]">
+      <section className="flex flex-col mb-16">
+        <h2 className="text-3xl font-medium pl-4">Nutrition </h2>
+        <div className="rounded-2xl p-4 h-fit ">
           <div className="grid sm:grid-cols-2 place-content-center lg:grid-cols-4 md:grid-cols-3 gap-8 mb-8">
             {
               data.map((product: any) => (
@@ -58,9 +58,9 @@ function Home() {
           </div>
         </div>
       </section>
-      <section className="gap-4 flex flex-col mb-16">
-        <h2 className="text-3xl font-medium">Vêtement </h2>
-        <div className="rounded-2xl p-4 h-fit shadow-xl bg-[#f8f7f4]">
+      <section className="flex flex-col mb-16">
+        <h2 className="text-3xl font-medium pl-4">Vêtement </h2>
+        <div className="rounded-2xl p-4 h-fit ">
           <div className="grid sm:grid-cols-2 place-content-center lg:grid-cols-4 md:grid-cols-3 gap-8 mb-8">
             <div className="rounded-2xl max-w-80  p-2 h-fit shadow-xl bg-[#F8F7F4]">
               <div className="text-center flex flex-col gap-4">
