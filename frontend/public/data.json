@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "title": "Poudre de protéines vanille",
+    "price": 29.99,
+    "image": "https://img.freepik.com/photos-gratuite/protein-powder-pouring-into-cup_23-2152017168.jpg?t=st=1763410994~exp=1763414594~hmac=c2138e8683b79a2ac7851f5f0c59fef95b46b0b4ce82f5bff8b0e75725e09fd0&w=1060"
+  },
+  {
+    "id": 2,
+    "title": "Protéines pour sportifs",
+    "price": 34.50,
+    "image": "https://img.freepik.com/photos-gratuite/proteines-gymnastique_23-2151980040.jpg?t=st=1763411182~exp=1763414782~hmac=cff0baa05657a6bff3d7982ca3a12e759be02768f06b986c5029ce8a635e55b9&w=1480"
+  },
+  {
+    "id": 3,
+    "title": "Barres protéinées chocolat & noix",
+    "price": 12.90,
+    "image": "https://img.freepik.com/photos-premium/quatre-barres-chocolat-noix-fond-sombre_1166109-38424.jpg?w=2000"
+  },
+  {
+    "id": 4,
+    "title": "Compléments alimentaires multivitaminés",
+    "price": 19.99,
+    "image": "https://img.freepik.com/photos-premium/supplements-alimentaires-base-vitamines_551707-124928.jpg?w=2000"
+  }
+]
