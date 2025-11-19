@@ -11,6 +11,7 @@ import com.cwa.GymBros.service.UserService;
 
 @RestController
 @RequestMapping("/users")
+@CrossOrigin(origins = "http://localhost:5173")
 public class UserController {
 
     @Autowired
