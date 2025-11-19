@@ -30,6 +30,8 @@ public class Product {
     @Column(nullable = false)
     private Integer stock;
 
+    private boolean favorite = false;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Type type;
@@ -88,6 +90,18 @@ public class Product {
         this.stock = stock;
     }
 
+    public boolean isFavorite() {
+        return this.favorite;
+    }
+
+    public boolean getFavorite() {
+        return this.favorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        this.favorite = favorite;
+    }
+
     public Type getType() {
         return this.type;
     }
@@ -119,5 +133,6 @@ public class Product {
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
+
 
 }
