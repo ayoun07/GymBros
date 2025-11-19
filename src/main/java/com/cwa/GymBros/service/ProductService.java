@@ -1,12 +1,15 @@
 package com.cwa.GymBros.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.cwa.GymBros.model.Product;
+import com.cwa.GymBros.model.Type;
 import com.cwa.GymBros.repository.ProductRepository;
 
 @Service
@@ -28,9 +31,17 @@ public class ProductService {
         return productRepository.findAll();
     }
 
-    public List<Product> getFirstProducts(int limit) {
-        Pageable pageable = PageRequest.of(0, limit);
-        return productRepository.findAll(pageable).getContent();
+    public Map<Type, List<Product>> getLimitedProductsByType(int limit) {
+        Map<Type, List<Product>> result = new HashMap<>();
+
+        // Parcours tous les types de l’enum
+        for (Type type : Type.values()) {
+            Pageable pageable = PageRequest.of(0, limit);
+            List<Product> products = productRepository.findByType(type, pageable);
+            result.put(type, products);
+        }
+
+        return result;
     }
 
     // READ BY ID
