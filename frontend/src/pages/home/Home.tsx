@@ -49,12 +49,12 @@ function Home() {
           <div className="grid sm:grid-cols-2 place-content-center lg:grid-cols-4 md:grid-cols-3 gap-8 mb-8">
             {
               data.map((product: any) => (
-                <Card key={product.id} title={product.title} price={product.price} link={"/"} image={product.image}/>
+                <Card key={product.id} title={product.title} price={product.price} link={`/nutrition/${product.id}`} image={product.image}/>
               ))
             }
           </div>
           <div className="flex justify-center">
-           <Button value="voir plus" link="/" />
+           <Button value="voir plus" link="/nutrition" />
           </div>
         </div>
       </section>
