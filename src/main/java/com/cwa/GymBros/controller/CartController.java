@@ -10,6 +10,7 @@ import com.cwa.GymBros.service.CartService;
 
 @RestController
 @RequestMapping("/cart")
+@CrossOrigin(origins = "http://localhost:5173")
 public class CartController {
 
     @Autowired

@@ -9,6 +9,7 @@ import com.cwa.GymBros.service.NoticeService;
 
 @RestController
 @RequestMapping("/notices")
+@CrossOrigin(origins = "http://localhost:5173")
 public class NoticeController {
 
     private final NoticeService noticeService;
