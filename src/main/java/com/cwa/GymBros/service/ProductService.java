@@ -2,6 +2,8 @@ package com.cwa.GymBros.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.cwa.GymBros.model.Product;
@@ -24,6 +26,11 @@ public class ProductService {
     // READ ALL
     public List<Product> getAllProducts() {
         return productRepository.findAll();
+    }
+
+    public List<Product> getFirstProducts(int limit) {
+        Pageable pageable = PageRequest.of(0, limit);
+        return productRepository.findAll(pageable).getContent();
     }
 
     // READ BY ID

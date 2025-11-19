@@ -29,6 +29,11 @@ public class ProductController {
         return productService.getAllProducts();
     }
 
+    @GetMapping("/limited")
+    public List<Product> getLimitedProducts(@RequestParam(defaultValue = "4") int limit) {
+        return productService.getFirstProducts(limit);
+    }
+
     // GET BY ID
     @GetMapping("/{id}")
     public Product getProductById(@PathVariable Long id) {
