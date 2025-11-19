@@ -30,10 +30,10 @@ export default function Header() {
       {size >= 825 ? (
         <header className="h-20 mb-16 w-full bg-[#f8f7f4] shadow-2xl rounded-b-2xl text-center">
           <nav className="w-full h-full flex justify-between gap-4 items-center px-8">
-            <div className="p-4 w-26 bg-gray-200 rounded-2xl">logo</div>
+            <NavLink to={"/"} className="p-4 w-26 bg-gray-200 rounded-2xl">logo</NavLink>
             <div className="flex gap-6 md:gap-2 items-center max-w-64 w-full">
-              <Button value="nutrition" link="/" />
-              <Button value="vêtement" link="/" />
+              <Button value="nutrition" link="/nutrition" />
+              <Button value="vêtement" link="/vetement" />
             </div>
             <div className="flex gap-6 md:gap-2 min-w-fit items-center">
               <input
