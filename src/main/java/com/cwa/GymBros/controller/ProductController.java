@@ -38,6 +38,10 @@ public class ProductController {
         return productService.getLimitedProductsByType(limit);
     }
 
+    @GetMapping("/search")
+    public List<Product> searchProducts(@RequestParam String name){
+        return productService.searchProductByName(name);
+    }
     // GET BY ID
     @GetMapping("/{id}")
     public Product getProductById(@PathVariable Long id) {

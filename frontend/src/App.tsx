@@ -6,20 +6,22 @@ import Footer from './components/footer/Footer'
 import Nutrition from './pages/nutrition/Nutrition'
 import NutritionDetails from './pages/nutrition/[id]'
 import ShoppingCartPage from './components/cart/ShoppingCartPage'
+import Register from './pages/register/register'
 function App() {
 
   return (
     <BrowserRouter>
-    <Header />
-    <Routes>
-      <Route path='/' Component={Home} />
-      <Route path='/nutrition' Component={Nutrition} />
-      <Route path='/nutrition/:id' Component={NutritionDetails} />
-      <Route path='/panier' Component={ShoppingCartPage} />
-    </Routes>
-    <Footer />
+      <Header />
+      <Routes>
+        <Route path="/" Component={Home} />
+        <Route path="/nutrition" Component={Nutrition} />
+        <Route path="/nutrition/:id" Component={NutritionDetails} />
+        <Route path="/panier" Component={ShoppingCartPage} />
+        <Route path="/inscription" Component={Register} />
+      </Routes>
+      <Footer />
     </BrowserRouter>
-  )
+  );
 }
 
 export default App
