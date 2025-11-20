@@ -44,6 +44,10 @@ public class ProductService {
         return result;
     }
 
+    public List<Product> searchProductByName(String name){
+        return productRepository.findByNameContainingIgnoreCase(name);
+    }
+
     // READ BY ID
     public Product getProductById(Long id) {
         return productRepository.findById(id)

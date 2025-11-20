@@ -7,6 +7,7 @@ import Nutrition from './pages/nutrition/Nutrition'
 import NutritionDetails from './pages/nutrition/[id]'
 import ShoppingCartPage from './components/cart/ShoppingCartPage'
 import Clothe from './Clothe'
+import Register from './pages/register/register'
 function App() {
 
   return (
@@ -19,10 +20,11 @@ function App() {
       <Route path='/vetement/:id' Component={NutritionDetails} />
       <Route path='/nutrition/:id' Component={NutritionDetails} />
       <Route path='/panier' Component={ShoppingCartPage} />
+        <Route path="/inscription" Component={Register} />
     </Routes>
     <Footer />
     </BrowserRouter>
-  )
+  );
 }
 
 export default App
