@@ -8,11 +8,12 @@ interface CardProps {
   title: string;
   price: number;
   link: string;
+  type: string;
   image: string;
   rating?: number;
 }
 
-export default function Card({ id, title, price, link, image }: CardProps) {
+export default function Card({ id, title, price, type, link, image }: CardProps) {
   const [rating, setRating] = useState("0");
   const [averageRating, setAverageRating] = useState("0");
 
@@ -46,8 +47,8 @@ export default function Card({ id, title, price, link, image }: CardProps) {
             {rating ? <span className="text-gray-500">({rating.length} avis) </span> : <span>0</span>}
           </div>
         <p className="text-2xl font-semibold">{price.toFixed(2)} €</p>
-        <div className="flex items-center justify-center  w-full rounded-xl">
-            <Button text="Ajouter au panier" value={id} action="addToCart" />
+        <div className="flex z-10 items-center justify-center  w-full rounded-xl">
+            <Button text="Ajouter au panier" value={id} action="addToCart" link={`/${type}/${id}`} />
         </div>
       </div>
     </NavLink>
