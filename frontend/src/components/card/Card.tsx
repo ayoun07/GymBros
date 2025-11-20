@@ -35,7 +35,7 @@ export default function Card({ id, title, price, favorite, type, link, image }: 
 
   const handleChangeFavorite = async () => {
     const response = await updateFavoriteProduct(id, { favorite: !isFavorite });
-    setIsFavorite(response)
+    setIsFavorite(response.favorite)
     console.log(response);
   }
 
@@ -51,7 +51,7 @@ export default function Card({ id, title, price, favorite, type, link, image }: 
           src={image}
           alt=""
         />
-        <FaHeart className={`bg-white ${favorite ? "text-red-500" : ""} rounded-2xl z-20 absolute top-2 right-2 p-1`} size={24}
+        <FaHeart className={`bg-white ${isFavorite  ? "text-red-500" : "text-black"} rounded-2xl z-20 absolute top-2 right-2 p-1`} size={24}
        onClick={(e) => {
                         e.preventDefault();
                         e.stopPropagation();

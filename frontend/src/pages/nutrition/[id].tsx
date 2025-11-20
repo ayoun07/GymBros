@@ -105,7 +105,7 @@ export default function NutritionDetails() {
             </div>
           </section>
 
-          <section className="flex bg-blue-200 max-md:justify-center   max-md:text-center justify-between flex-col gap-8">
+          <section className="flex max-md:justify-center   max-md:text-center justify-between flex-col gap-8">
             <div className="flex max-w-140  mx-auto flex-col justify-start gap-y-4 h-full">
               <h1 className="text-4xl  max-lg:text3xl max-md:text-2xl max-md:text-center font-bold uppercase">
                 {dataDetails.name}
