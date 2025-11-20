@@ -5,8 +5,6 @@ export async function getLimitedProducts(value: number) {
 
     const response = await apiClient.get(`/products/by-type?limit=${value}`);
 
-    console.log(response)
-
     return response.data;
     
 };
