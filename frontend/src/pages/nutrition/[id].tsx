@@ -5,6 +5,7 @@ import { FaArrowAltCircleLeft, FaArrowAltCircleRight } from "react-icons/fa";
 import { addToCart} from "../../../service/CartService.ts";
 import { useCart } from "../../components/cart/CartContext.tsx";
 import { FaHeart } from "react-icons/fa6";
+import { getNoticesId, postNotices } from "../../../service/NoticeService.ts";
 
 interface dataDetailsProps {
   id: number;
@@ -21,6 +22,8 @@ export default function NutritionDetails() {
   const { id } = useParams();
   const [changeImage, setChangeImage] = useState<string>("");
   const [quantity, setQuantity] = useState<number>(1);
+  const [notices, setNotices] = useState([]);
+  const [inputChange, setInputChange] = useState("");
   const { refreshCart } = useCart();
 
 
@@ -31,6 +34,7 @@ export default function NutritionDetails() {
 
   useEffect(() => {
     getProductDetails();
+    getNoticeById();
   }, [id]);
 
   const getProductDetails = async () => {
@@ -41,6 +45,17 @@ export default function NutritionDetails() {
     setDataDetails(response);
   };
 
+  const getNoticeById = async () => {
+    const response = await getNoticesId(String(id))
+    console.log(response)
+    setNotices(response);
+  }
+
+   const handleChange = async () => {
+    const response = await postNotices({user: 1, title: inputChange, product: id});
+
+    console.log(response);
+   }
 
   return (
     dataDetails && (
@@ -145,11 +160,15 @@ export default function NutritionDetails() {
    <form className="flex flex-col gap-2 mt-4 max-w-140">
     <textarea
       placeholder="Ajouter un commentaire..."
+      onChange={(e) => setInputChange(e.target.value)}
       className="w-full p-3 rounded-2xl border border-gray-300 resize-none focus:outline-none focus:border-[#5390b3]"
       rows={3}
     />
     <button
       type="submit"
+      onClick={(e) => {
+        e.preventDefault();
+        handleChange()}}
       className="bg-[#5390b3] hover:bg-[#63acd6] text-white font-semibold uppercase p-3 rounded-2xl transition"
     >
       Poster
@@ -157,14 +176,14 @@ export default function NutritionDetails() {
   </form>
 
   <div className="grid grid-cols-3 md:grid-cols-2 max-md:grid-cols-1 gap-4 max-h-64 overflow-y-auto">
-    {[
-      { id: 1, user: "Alice", text: "Produit super ! Livraison rapide." },
-      { id: 2, user: "Bob", text: "Très bonne qualité, je recommande." },
-      { id: 3, user: "Charlie", text: "Un peu cher mais ça vaut le coup." }
-    ].map(comment => (
-      <div key={comment.id} className="bg-white rounded-xl p-3 shadow-md">
-        <p className="font-semibold">{comment.user}</p>
-        <p className="text-sm line-clamp-3">{comment.text}</p>
+    {notices && notices.map((comment: any) => (
+      <div key={comment.id} className="bg-white rounded-xl p-3 gap-2 shadow-md">
+        <p className="font-semibold">{comment.user.firstname}</p>
+        <p className="text-sm line-clamp-3">{comment.title}</p>
+        <p className="text-sm line-clamp-3">
+  {new Date(comment.createdAt).toLocaleDateString("fr-FR")}
+</p>
+
       </div>
     ))}
   </div>

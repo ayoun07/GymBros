@@ -4,6 +4,7 @@ import { FaHeart } from "react-icons/fa6";
 import { useEffect, useState } from "react";
 import { getAverageRating, getNoticesId } from "../../../service/NoticeService";
 import Button from "../button/Button";
+import { updateFavoriteProduct } from "../../../service/ProductService";
 
 interface CardProps {
   id: string;
@@ -19,6 +20,7 @@ interface CardProps {
 export default function Card({ id, title, price, favorite, type, link, image }: CardProps) {
   const [rating, setRating] = useState("0");
   const [averageRating, setAverageRating] = useState("0");
+  const [isFavorite, setIsFavorite] = useState(favorite);
 
   useEffect(() => {
     getNoticesById();
@@ -30,6 +32,12 @@ export default function Card({ id, title, price, favorite, type, link, image }: 
     setRating(response);
     setAverageRating(responseAverage);
   };
+
+  const handleChangeFavorite = async () => {
+    const response = await updateFavoriteProduct(id, { favorite: !isFavorite });
+    setIsFavorite(response)
+    console.log(response);
+  }
 
   return (
     <NavLink
@@ -47,6 +55,7 @@ export default function Card({ id, title, price, favorite, type, link, image }: 
        onClick={(e) => {
                         e.preventDefault();
                         e.stopPropagation();
+                        handleChangeFavorite();
                       }}
         />
         </div>

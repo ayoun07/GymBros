@@ -6,6 +6,7 @@ export type Product = {
     description: string;
     price: number;
     stock: number;
+    favorite: boolean;
     type: Type;
     imageUrls: string[];
     createdAt: Date;
