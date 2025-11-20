@@ -23,8 +23,7 @@ export default function NutritionDetails() {
 
 
   const addCart = async () => {
-  const response = await addToCart("1", dataDetails?.id.toString() as string);
-  console.log(response);
+  await addToCart("1", dataDetails?.id.toString() as string);
  await refreshCart(); 
 }
 

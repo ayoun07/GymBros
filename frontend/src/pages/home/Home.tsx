@@ -13,7 +13,6 @@ function Home() {
 
   const getAllProducts = async () => {
     const response = await getLimitedProducts(4);
-    console.log(response.NUTRITION);
     setDataNutrtion(response.NUTRITION);
     setDataVetement(response.VETEMENT);
   }
@@ -39,7 +38,7 @@ function Home() {
         </div>
         <div className=" rounded-2xl self-center w-full h-fit shadow-2xl">
           <img
-            className="rounded-2xl md:min-w-96 w-fit h-full bg-blue-200"
+            className="rounded-2xl md:min-w-96 w-fit h-full bg-gray-200"
             src="https://img.freepik.com/psd-premium/maquette-halteres-enduite-vinyle-vue-droite-gros-plan_1332-982.jpg?w=1480"
             alt=""
           />
@@ -56,7 +55,7 @@ function Home() {
             }
           </div>
           <div className="flex justify-center">
-           <Button value="voir plus" link="/nutrition" />
+           <Button text="voir plus" value="" link="/nutrition" />
           </div>
         </div>
       </section>
@@ -71,7 +70,7 @@ function Home() {
             }
           </div>
           <div className="flex justify-center">
-           <Button value="voir plus" link="/nutrition" />
+           <Button text="voir plus" value="" link="/nutrition" />
           </div>
         </div>
       </section>

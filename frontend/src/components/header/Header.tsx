@@ -34,8 +34,8 @@ export default function Header() {
           <nav className="w-full h-full flex justify-between gap-4 items-center px-8">
             <NavLink to={"/"} className="p-4 w-26 bg-gray-200 rounded-2xl">logo</NavLink>
             <div className="flex gap-6 md:gap-2 items-center max-w-64 w-full">
-              <Button value="nutrition" link="/nutrition" />
-              <Button value="vêtement" link="/vetement" />
+              <Button value="" text="nutrition" link="/nutrition" />
+              <Button value="" text="vêtement" link="/vetement" />
             </div>
             <div className="flex gap-6 md:gap-2 min-w-fit items-center">
               <input
@@ -65,10 +65,11 @@ export default function Header() {
               className="z-40 absolute top-2 right-0 text-4xl cursor-pointer"
             />
             <div className="flex flex-col justify-center gap-8 w-10/12 relative">
-              <Button value="nutrition" link="/" />
-              <Button value="vêtement" link="/" />
-              <Button value="compte" link="/" />
-              <Button value="panier" link="/" />
+              <Button value="" text="home" link="/" />
+              <Button value="" text="nutrition" link="/nutrition" />
+              <Button value="" text="vêtement" link="/vetement" />
+              <Button value="" text="compte" link="/" />
+              <Button value="" text="panier" link="/panier" />
             </div>
           </div>
         </div>

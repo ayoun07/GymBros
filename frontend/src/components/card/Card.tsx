@@ -23,8 +23,6 @@ export default function Card({ id, title, price, link, image }: CardProps) {
   const getNoticesById = async () => {
     const response = await getNoticesId(id);
     const responseAverage = await getAverageRating(id);
-    console.log("jean", response);
-    console.log("jean", responseAverage);
     setRating(response);
     setAverageRating(responseAverage);
   };
@@ -49,7 +47,7 @@ export default function Card({ id, title, price, link, image }: CardProps) {
           </div>
         <p className="text-2xl font-semibold">{price.toFixed(2)} €</p>
         <div className="flex items-center justify-center  w-full rounded-xl">
-            <Button value="Ajouter au panier" />
+            <Button text="Ajouter au panier" value={id} action="addToCart" />
         </div>
       </div>
     </NavLink>
