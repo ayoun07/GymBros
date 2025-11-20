@@ -44,6 +44,10 @@ public class ProductService {
         return result;
     }
 
+    public List<Product> searchProductByName(String name){
+        return productRepository.findByNameContainingIgnoreCase(name);
+    }
+
     // READ BY ID
     public Product getProductById(Long id) {
         return productRepository.findById(id)
@@ -54,15 +58,32 @@ public class ProductService {
     public Product updateProduct(Long id, Product updatedProduct) {
         Product existing = getProductById(id);
 
-        existing.setName(updatedProduct.getName());
-        existing.setDescription(updatedProduct.getDescription());
-        existing.setPrice(updatedProduct.getPrice());
-        existing.setStock(updatedProduct.getStock());
-        existing.setType(updatedProduct.getType());
-        existing.setImageUrls(updatedProduct.getImageUrls());
+        if (updatedProduct.getName() != null) {
+            existing.setName(updatedProduct.getName());
+        }
+        if (updatedProduct.getDescription() != null) {
+            existing.setDescription(updatedProduct.getDescription());
+        }
+        if (updatedProduct.getPrice() != null) {
+            existing.setPrice(updatedProduct.getPrice());
+        }
+        if (updatedProduct.getStock() != null) {
+            existing.setStock(updatedProduct.getStock());
+        }
+        if (updatedProduct.getType() != null) {
+            existing.setType(updatedProduct.getType());
+        }
+        if (updatedProduct.getImageUrls() != null) {
+            // existing.setImageUrls(updatedProduct.getImageUrls());
+        }
+        if (updatedProduct.getFavorite() != null) {
+            existing.setFavorite(updatedProduct.getFavorite());
+        }
 
         return productRepository.save(existing);
     }
+
+
 
     // DELETE
     public void deleteProduct(Long id) {

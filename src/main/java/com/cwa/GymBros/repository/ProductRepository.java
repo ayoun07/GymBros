@@ -12,4 +12,5 @@ import com.cwa.GymBros.model.Type;
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
     List<Product> findByType(Type type, Pageable pageable);
+    List<Product> findByNameContainingIgnoreCase(String name);
 }

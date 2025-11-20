@@ -1,5 +1,6 @@
 
 import apiClient from "../api/apiClient";
+import { Notice } from "../models/NoticeModel";
 
 export async function getNotices() {
     const response = await apiClient.get("/notices");
@@ -9,6 +10,12 @@ export async function getNotices() {
 
 export async function getNoticesId(id: string) {
     const response = await apiClient.get(`/notices/product/${id}`);
+
+    return response.data;
+}
+
+export async function postNotices(newNotices: Partial<Notice>) {
+    const response = await apiClient.post(`/notices`, newNotices);
 
     return response.data;
 }

@@ -19,7 +19,7 @@ function Home() {
 
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col pt-32">
       <section className="flex max-md:flex-col max-sm:gap-6 justify-between mb-16">
         <div className="flex flex-col justify-center gap-6 max-w-4xl">
           <h1 className="text-6xl font-bold uppercase ">Gymbros</h1>
@@ -50,7 +50,7 @@ function Home() {
           <div className="grid sm:grid-cols-2 place-content-center lg:grid-cols-4 md:grid-cols-3 gap-8 mb-8">
             {
               dataNutrition.map((product: any) => (
-                <Card key={product.id} id={product.id} title={product.name} price={product.price} link={`/nutrition/${product.id}`} image={product.imageUrls[0]}/>
+                <Card type="nutrition" key={product.id} favorite={product.favorite} id={product.id} title={product.name} price={product.price} link={`/nutrition/${product.id}`} image={product.imageUrls[0]}/>
               ))
             }
           </div>
@@ -60,12 +60,12 @@ function Home() {
         </div>
       </section>
       <section className="flex flex-col mb-16">
-        <h2 className="text-3xl font-medium pl-4">Nutrition </h2>
+        <h2 className="text-3xl font-medium pl-4">Vetement- </h2>
         <div className="rounded-2xl p-4 h-fit ">
           <div className="grid sm:grid-cols-2 place-content-center lg:grid-cols-4 md:grid-cols-3 gap-8 mb-8">
             {
               dataVetement.map((product: any) => (
-                <Card key={product.id} id={product.id} title={product.name} price={product.price} link={`/nutrition/${product.id}`} image={product.imageUrls[0]}/>
+                < Card type="vetement" key={product.id} id={product.id} favorite={product.favorite} title={product.name} price={product.price} link={`/nutrition/${product.id}`} image={product.imageUrls[0]}/>
               ))
             }
           </div>
