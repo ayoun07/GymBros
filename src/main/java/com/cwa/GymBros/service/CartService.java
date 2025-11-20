@@ -24,7 +24,7 @@ public class CartService {
     @Autowired
     private ProductRepository productRepository;
 
-    public Cart addToCart(Long userId, Long productId, Cart cartData) {
+    public Cart addToCart(Long userId, Long productId/*, Cart cartData*/) {
 
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
@@ -35,7 +35,7 @@ public class CartService {
         Cart cart = new Cart();
         cart.setUser(user);
         cart.setProduct(product);
-        cart.setPrice(cartData.getPrice()); 
+        //cart.setPrice(cartData.getPrice()); 
         cart.setOrder(null);
 
         return cartRepository.save(cart);
@@ -52,12 +52,12 @@ public class CartService {
         cartRepository.deleteById(cartId);
     }
 
-    public Cart updateCart(Long cartId, Cart cartData) {
+    public Cart updateCart(Long cartId/* , Cart cartData*/) {
         Cart cart = cartRepository.findById(cartId)
                 .orElseThrow(() -> new RuntimeException("Cart item not found"));
 
-        cart.setPrice(cartData.getPrice());
-        cart.setUpdatedAt(cartData.getUpdatedAt());
+        /*cart.setPrice(cartData.getPrice());
+        cart.setUpdatedAt(cartData.getUpdatedAt());*/
 
         return cartRepository.save(cart);
     }
