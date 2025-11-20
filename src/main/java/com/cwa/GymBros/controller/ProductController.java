@@ -1,10 +1,12 @@
 package com.cwa.GymBros.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.web.bind.annotation.*;
 
 import com.cwa.GymBros.model.Product;
+import com.cwa.GymBros.model.Type;
 import com.cwa.GymBros.service.ProductService;
 
 @RestController
@@ -28,6 +30,12 @@ public class ProductController {
     @GetMapping
     public List<Product> getAllProducts() {
         return productService.getAllProducts();
+    }
+
+    @GetMapping("/by-type")
+    public Map<Type, List<Product>> getProductsByType(
+            @RequestParam(defaultValue = "4") int limit) {
+        return productService.getLimitedProductsByType(limit);
     }
 
     // GET BY ID

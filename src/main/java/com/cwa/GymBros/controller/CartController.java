@@ -20,10 +20,10 @@ public class CartController {
     @PostMapping("/{userId}/{productId}")
     public Cart addToCart(
         @PathVariable Long userId,
-        @PathVariable Long productId,
-        @RequestBody Cart cartData
+        @PathVariable Long productId/* ,
+        @RequestBody Cart cartData*/
     ) {
-        return cartService.addToCart(userId, productId, cartData);
+        return cartService.addToCart(userId, productId/* , cartData*/);
     }
 
     // 🔹 Récupérer tous les articles du panier d'un user
@@ -35,10 +35,10 @@ public class CartController {
     // 🔹 Mettre à jour un article du panier
     @PutMapping("/item/{cartId}")
     public Cart updateCartItem(
-        @PathVariable Long cartId,
-        @RequestBody Cart cartData
+        @PathVariable Long cartId/* ,
+        @RequestBody Cart cartData*/
     ) {
-        return cartService.updateCart(cartId, cartData);
+        return cartService.updateCart(cartId/* , cartData*/);
     }
 
     // 🔹 Supprimer un article du panier

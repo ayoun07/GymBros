@@ -18,8 +18,8 @@ public class Cart {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private BigDecimal price;
+    /*@Column(nullable = false)
+    private BigDecimal price;*/
 
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
@@ -50,13 +50,13 @@ public class Cart {
         this.id = id;
     }
 
-    public BigDecimal getPrice() {
+    /*public BigDecimal getPrice() {
         return this.price;
     }
 
     public void setPrice(BigDecimal price) {
         this.price = price;
-    }
+    }*/
 
     public LocalDateTime getCreatedAt() {
         return this.createdAt;
