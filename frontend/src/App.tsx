@@ -5,6 +5,7 @@ import Header from './components/header/Header'
 import Footer from './components/footer/Footer'
 import Nutrition from './pages/nutrition/Nutrition'
 import NutritionDetails from './pages/nutrition/[id]'
+import ShoppingCartPage from './components/cart/ShoppingCartPage'
 function App() {
 
   return (
@@ -14,6 +15,7 @@ function App() {
       <Route path='/' Component={Home} />
       <Route path='/nutrition' Component={Nutrition} />
       <Route path='/nutrition/:id' Component={NutritionDetails} />
+      <Route path='/panier' Component={ShoppingCartPage} />
     </Routes>
     <Footer />
     </BrowserRouter>

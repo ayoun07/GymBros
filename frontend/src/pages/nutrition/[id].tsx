@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getProductById } from "../../../service/ProductService";
-import Button from "../../components/button/Button";
 import { FaArrowAltCircleLeft, FaArrowAltCircleRight } from "react-icons/fa";
 import { addToCart} from "../../../service/CartService.ts";
+import { useCart } from "../../components/cart/CartContext.tsx";
 
 interface dataDetailsProps {
   id: number;
@@ -19,6 +19,14 @@ export default function NutritionDetails() {
   const { id } = useParams();
   const [changeImage, setChangeImage] = useState<string>("");
   const [quantity, setQuantity] = useState<number>(1);
+  const { refreshCart } = useCart();
+
+
+  const addCart = async () => {
+  const response = await addToCart("1", dataDetails?.id.toString() as string);
+  console.log(response);
+ await refreshCart(); 
+}
 
   useEffect(() => {
     getProductDetails();
@@ -29,11 +37,6 @@ export default function NutritionDetails() {
     setDataDetails(response);
   };
 
-  const addCart = async () => {
-    const response = await addToCart("1", dataDetails?.id.toString() as string);
-
-    console.log(response);
-  }
 
   return (
     dataDetails && (

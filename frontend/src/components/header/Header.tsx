@@ -3,7 +3,8 @@ import { NavLink } from "react-router-dom";
 import Button from "../button/Button";
 import { MdOutlineClose } from "react-icons/md";
 import { GiHamburgerMenu } from "react-icons/gi";
-import { FaUser, FaShoppingCart  } from "react-icons/fa";
+import { FaUser  } from "react-icons/fa";
+import ShoppingCart from "../cart/ShoppingCart";
 
 export default function Header() {
   const [size, setSize] = useState(window.innerWidth);
@@ -25,6 +26,7 @@ export default function Header() {
     document.body.style.overflow = isOpen ? 'hidden' : 'auto';
   }, [isOpen]);
 
+
   return (
     <>
       {size >= 825 ? (
@@ -41,12 +43,10 @@ export default function Header() {
                 placeholder="rechercher"
                 className="p-4 min-w-86 bg-gray-200 rounded-2xl outline-none"
               />
-              <NavLink to={"/"} className="p-4 max-w-32 w-full ">
+              <NavLink to={"/"} className="p-4 max-w-32 w-full">
                 <FaUser className="mx-auto size-6 hover:text-[#63acd6] transition duration-150" />
               </NavLink>
-              <NavLink to={"/"} className="p-4 max-w-32 w-full ">
-                <FaShoppingCart className="mx-auto size-6 hover:text-[#63acd6] transition duration-150  " />
-              </NavLink>
+            <ShoppingCart />
             </div>
           </nav>
         </header>
