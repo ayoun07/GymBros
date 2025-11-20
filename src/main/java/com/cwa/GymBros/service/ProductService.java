@@ -74,7 +74,7 @@ public class ProductService {
             existing.setType(updatedProduct.getType());
         }
         if (updatedProduct.getImageUrls() != null) {
-            existing.setImageUrls(updatedProduct.getImageUrls());
+            // existing.setImageUrls(updatedProduct.getImageUrls());
         }
         if (updatedProduct.getFavorite() != null) {
             existing.setFavorite(updatedProduct.getFavorite());
