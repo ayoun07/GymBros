@@ -24,3 +24,9 @@ export async function getProductById(id: string) {
     return response.data;
 }
 
+export async function findProductByName(value: string) {
+    const response = await apiClient.get(`/products/search?name=${value}`);
+
+    return response.data;
+}
+

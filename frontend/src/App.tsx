@@ -6,7 +6,7 @@ import Footer from './components/footer/Footer'
 import Nutrition from './pages/nutrition/Nutrition'
 import NutritionDetails from './pages/nutrition/[id]'
 import ShoppingCartPage from './components/cart/ShoppingCartPage'
-import Clothe from './Clothe'
+import Clothe from './pages/clothe/Clothe'
 import Register from './pages/register/register'
 function App() {
 
