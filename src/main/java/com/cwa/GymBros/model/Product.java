@@ -18,22 +18,17 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false)
     private String description;
 
-    @Column(nullable = false)
     private BigDecimal price;
 
-    @Column(nullable = false)
     private Integer stock;
 
-    private boolean favorite = false;
+    private Boolean favorite = false;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
     private Type type;
 
     @ElementCollection
@@ -42,11 +37,11 @@ public class Product {
     private List<String> imageUrls = new ArrayList<>();
 
     @CreationTimestamp
-    @Column(name = "created_at", nullable = false, updatable = false)
+    @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
 
     @UpdateTimestamp
-    @Column(name = "updated_at", nullable = false)
+    @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
 
@@ -90,15 +85,15 @@ public class Product {
         this.stock = stock;
     }
 
-    public boolean isFavorite() {
+    public Boolean isFavorite() {
         return this.favorite;
     }
 
-    public boolean getFavorite() {
+    public Boolean getFavorite() {
         return this.favorite;
     }
 
-    public void setFavorite(boolean favorite) {
+    public void setFavorite(Boolean favorite) {
         this.favorite = favorite;
     }
 
@@ -133,6 +128,5 @@ public class Product {
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
-
 
 }
