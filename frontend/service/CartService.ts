@@ -12,3 +12,10 @@ export async function getCart(userId: string) {
 
     return response.data;
 }
+
+
+export async function deleteCart(cartId: string) {
+    const response = await apiClient.delete(`/cart/item/${cartId}`);
+
+    return response.data;
+}
