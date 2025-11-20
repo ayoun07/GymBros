@@ -1,22 +1,24 @@
 import { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
 import Card from "../../components/card/Card";
 import Button from "../../components/button/Button";
+import { getLimitedProducts } from "../../../service/ProductService";
 
 function Home() {
-  const [data, setData] = useState([]);
+  const [dataNutrition, setDataNutrtion] = useState([]);
+  const [dataVetement, setDataVetement] = useState([]);
 
   useEffect(() => {
-    getProducts();
+    getAllProducts();
   }, []);
 
-  const getProducts = async () => {
-    const response = await fetch("/data.json");
-
-    const data = await response.json();
-    console.log(data);
-    setData(data);
+  const getAllProducts = async () => {
+    const response = await getLimitedProducts(4);
+    console.log(response.NUTRITION);
+    setDataNutrtion(response.NUTRITION);
+    setDataVetement(response.VETEMENT);
   }
+
+
   return (
     <div className="flex flex-col">
       <section className="flex max-md:flex-col max-sm:gap-6 justify-between mb-16">
@@ -48,8 +50,8 @@ function Home() {
         <div className="rounded-2xl p-4 h-fit ">
           <div className="grid sm:grid-cols-2 place-content-center lg:grid-cols-4 md:grid-cols-3 gap-8 mb-8">
             {
-              data.map((product: any) => (
-                <Card key={product.id} title={product.title} price={product.price} link={`/nutrition/${product.id}`} image={product.image}/>
+              dataNutrition.map((product: any) => (
+                <Card key={product.id} id={product.id} title={product.name} price={product.price} link={`/nutrition/${product.id}`} image={product.imageUrls[0]}/>
               ))
             }
           </div>
@@ -59,90 +61,17 @@ function Home() {
         </div>
       </section>
       <section className="flex flex-col mb-16">
-        <h2 className="text-3xl font-medium pl-4">Vêtement </h2>
+        <h2 className="text-3xl font-medium pl-4">Nutrition </h2>
         <div className="rounded-2xl p-4 h-fit ">
           <div className="grid sm:grid-cols-2 place-content-center lg:grid-cols-4 md:grid-cols-3 gap-8 mb-8">
-            <div className="rounded-2xl max-w-80  p-2 h-fit shadow-xl bg-[#F8F7F4]">
-              <div className="text-center flex flex-col gap-4">
-                <img
-                  className="shadow-2xl rounded-2xl w-full h-56 object-cover"
-                  src="https://img.freepik.com/photos-premium/jeune-homme-elegant-capuche-noire-posant-dans-espace-urbain-moderne_1179475-57083.jpg?w=2000"
-                  alt=""
-                />
-                <p className="font-semibold uppercase h-12 ">
-                  Ensemble survêtement noir de sport - Homme
-                </p>
-                <p className="text-2xl font-semibold">39.99€</p>
-                <NavLink
-                  className="bg-[#5390b3] rounded-2xl text-white w-full px-2 py-4 uppercase font-medium"
-                  to={"/"}
-                >
-                  ajouter au panier
-                </NavLink>
-              </div>
-            </div>
-            <div className="rounded-2xl max-w-80  p-2 h-fit shadow-xl bg-[#F8F7F4]">
-              <div className="text-center flex flex-col gap-4">
-                <img
-                  className="shadow-2xl rounded-2xl w-full h-56 bg-fit object-cover"
-                  src="https://img.freepik.com/photos-premium/jeune-homme-elegant-capuche-grise-posant-plein-air-dans-cadre-urbain_1179475-55824.jpg?w=2000"
-                  alt=""
-                />
-                <p className="font-semibold uppercase h-12 ">
-                  Sweat gris a capuches - Homme
-                </p>
-                <p className="text-2xl font-semibold">25.99€</p>
-                <NavLink
-                  className="bg-[#5390b3] rounded-2xl text-white w-full px-2 py-4 uppercase font-medium"
-                  to={"/"}
-                >
-                  ajouter au panier
-                </NavLink>
-              </div>
-            </div>
-            <div className="rounded-2xl max-w-80  p-2 h-fit shadow-xl bg-[#F8F7F4]">
-              <div className="text-center flex flex-col gap-4">
-                <img
-                  className="shadow-2xl rounded-2xl w-full h-56 bg-fit object-cover"
-                  src="https://img.freepik.com/photos-premium/femme-portant-crop-top-blanc-jupe-blanche-chemise-blanche_999340-95898.jpg?w=1480"
-                  alt=""
-                />
-                <p className="font-semibold uppercase h-12 ">
-                  Pantalon jogging - Femme
-                </p>
-                <p className="text-2xl font-semibold">12.99€</p>
-                <NavLink
-                  className="bg-[#5390b3] rounded-2xl text-white w-full px-2 py-4 uppercase font-medium"
-                  to={"/"}
-                >
-                  ajouter au panier
-                </NavLink>
-              </div>
-            </div>
-            <div className="rounded-2xl max-w-80  p-2 h-fit shadow-xl bg-[#F8F7F4]">
-              <div className="text-center flex flex-col gap-4">
-                <img
-                  className="shadow-2xl rounded-2xl w-full h-56 bg-fit object-cover"
-                  src="https://img.freepik.com/photos-premium/jambes-masculines-leggings-baskets-noires-fond-gris_985688-11041.jpg?w=1480"
-                  alt=""
-                />
-                <p className="font-semibold uppercase h-12 ">
-                  Pantalon de survêtement noir - Homme
-                </p>
-                <p className="text-2xl font-semibold">15.99€</p>
-                <NavLink
-                  className="bg-[#5390b3] rounded-2xl text-white w-full px-2 py-4 uppercase font-medium"
-                  to={"/"}
-                >
-                  ajouter au panier
-                </NavLink>
-              </div>
-            </div>
+            {
+              dataVetement.map((product: any) => (
+                <Card key={product.id} id={product.id} title={product.name} price={product.price} link={`/nutrition/${product.id}`} image={product.imageUrls[0]}/>
+              ))
+            }
           </div>
           <div className="flex justify-center">
-            <button className="bg-[#5390b3] rounded-2xl text-white max-w-64 w-full px-2 py-4 uppercase font-medium">
-              Voir plus
-            </button>
+           <Button value="voir plus" link="/nutrition" />
           </div>
         </div>
       </section>
