@@ -21,13 +21,11 @@ export default function NutritionDetails() {
   const [quantity, setQuantity] = useState<number>(1);
 
   useEffect(() => {
-    console.log(id);
     getProductDetails();
   }, [id]);
 
   const getProductDetails = async () => {
     const response = await getProductById(id as string);
-    console.log(response);
     setDataDetails(response);
   };
 
