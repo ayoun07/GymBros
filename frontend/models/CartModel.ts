@@ -1,8 +1,12 @@
-interface Cart {
+import type { Product } from "./ProductModel";
+import type { User } from "./UserModel";
+
+export interface Cart {
     id: string;
     createdAt: Date,
     updatedAt: Date,
     orderId: number,
-    productId: number,
-    userId: number,
+    product: Product,
+    user: User,
 }
+

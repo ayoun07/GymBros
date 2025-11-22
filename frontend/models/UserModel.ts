@@ -1,4 +1,4 @@
-import { Sex } from "./Sex";
+import type { Sex } from "./Sex";
 
 export type User = {
     id: string;
