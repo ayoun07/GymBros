@@ -1,7 +1,8 @@
 import { FaShoppingCart } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 import { addToCart } from "../../../service/CartService";
-import { useCart } from "../cart/CartContext";
+import { useCart } from "../cart/useCart";
+
 
 interface ButtonProps {
   text: string;

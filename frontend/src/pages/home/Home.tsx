@@ -2,20 +2,27 @@ import { useEffect, useState } from "react";
 import Card from "../../components/card/Card";
 import Button from "../../components/button/Button";
 import { getLimitedProducts } from "../../../service/ProductService";
+import type { Product } from "../../../models/ProductModel";
 
 function Home() {
   const [dataNutrition, setDataNutrtion] = useState([]);
   const [dataVetement, setDataVetement] = useState([]);
-
-  useEffect(() => {
-    getAllProducts();
-  }, []);
 
   const getAllProducts = async () => {
     const response = await getLimitedProducts(4);
     setDataNutrtion(response.NUTRITION);
     setDataVetement(response.VETEMENT);
   }
+
+
+  useEffect(() => {
+    const fetchData = async () => {
+      getAllProducts();
+    }
+
+    fetchData();
+  }, []);
+
 
 
   return (
@@ -49,13 +56,13 @@ function Home() {
         <div className="rounded-2xl p-4 h-fit ">
           <div className="grid sm:grid-cols-2 place-content-center lg:grid-cols-4 md:grid-cols-3 gap-8 mb-8">
             {
-              dataNutrition.map((product: any) => (
-                <Card type="nutrition" key={product.id} favorite={product.favorite} id={product.id} title={product.name} price={product.price} link={`/nutrition/${product.id}`} image={product.imageUrls[0]}/>
+              dataNutrition.map((product: Product) => (
+                <Card type="nutrition" key={product.id} favorite={product.favorite} id={product.id} title={product.name} price={product.price} link={`/nutrition/${product.id}`} image={product.imageUrls[0]} />
               ))
             }
           </div>
           <div className="flex justify-center">
-           <Button text="voir plus" value="" link="/nutrition" />
+            <Button text="voir plus" value="" link="/nutrition" />
           </div>
         </div>
       </section>
@@ -64,13 +71,13 @@ function Home() {
         <div className="rounded-2xl p-4 h-fit ">
           <div className="grid sm:grid-cols-2 place-content-center lg:grid-cols-4 md:grid-cols-3 gap-8 mb-8">
             {
-              dataVetement.map((product: any) => (
-                < Card type="vetement" key={product.id} id={product.id} favorite={product.favorite} title={product.name} price={product.price} link={`/nutrition/${product.id}`} image={product.imageUrls[0]}/>
+              dataVetement.map((product: Product) => (
+                < Card type="vetement" key={product.id} id={product.id} favorite={product.favorite} title={product.name} price={product.price} link={`/nutrition/${product.id}`} image={product.imageUrls[0]} />
               ))
             }
           </div>
           <div className="flex justify-center">
-           <Button text="voir plus" value="" link="/nutrition" />
+            <Button text="voir plus" value="" link="/nutrition" />
           </div>
         </div>
       </section>

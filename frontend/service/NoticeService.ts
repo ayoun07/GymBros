@@ -1,6 +1,6 @@
 
 import apiClient from "../api/apiClient";
-import { Notice } from "../models/NoticeModel";
+import type { NoticeCreate } from "../models/NoticeModel";
 
 export async function getNotices() {
     const response = await apiClient.get("/notices");
@@ -14,7 +14,7 @@ export async function getNoticesId(id: string) {
     return response.data;
 }
 
-export async function postNotices(newNotices: Partial<Notice>) {
+export async function postNotices(newNotices: Partial<NoticeCreate>) {
     const response = await apiClient.post(`/notices`, newNotices);
 
     return response.data;

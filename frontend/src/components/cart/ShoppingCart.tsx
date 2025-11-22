@@ -1,9 +1,10 @@
 import { FaShoppingCart } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
-import { useCart } from "./CartContext";
+import { useCart } from "./useCart";
+
 
 export default function ShoppingCart() {
-  const {cartLength} = useCart();
+  const { cartLength } = useCart();
 
   return (
     <NavLink to={"/panier"} className="p-1 max-w-32 w-full relative">

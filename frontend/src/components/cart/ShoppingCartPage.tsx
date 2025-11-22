@@ -1,18 +1,16 @@
 import { useEffect, useState } from "react";
 import { deleteCart, getCart } from "../../../service/CartService";
 import { RiDeleteBin7Fill } from "react-icons/ri";
-import { useCart } from "./CartContext";
+
 import { NavLink } from "react-router-dom";
+import { useCart } from "./useCart";
+import type { Cart } from "../../../models/CartModel";
 
 function ShoppingCartPage() {
-  const [dataCart, setDataCart] = useState([]);
+  const [dataCart, setDataCart] = useState<Cart[]>([]);
   const { refreshCart } = useCart();
   const [isOpen, setIsOpen] = useState(false);
-  const [isId, setIsId] = useState(null);
-
-  useEffect(() => {
-    getAllProductFromCart();
-  }, []);
+  const [isId, setIsId] = useState("");
 
   const getAllProductFromCart = async () => {
     const response = await getCart("1");
@@ -20,10 +18,20 @@ function ShoppingCartPage() {
     setDataCart(response);
   };
 
-  const deleteProductFromCart = async () => {
-    isId && (await deleteCart(isId));
+  useEffect(() => {
+    const fetchData = async () => {
+      getAllProductFromCart();
+    };
 
-    setDataCart((prev) => prev.filter((item: any) => item.id !== isId));
+    fetchData();
+  }, []);
+
+  const deleteProductFromCart = async () => {
+    if (isId) {
+      await deleteCart(isId);
+    }
+
+    setDataCart((prev) => prev.filter((item: Cart) => item.id !== isId));
 
     await refreshCart();
 
@@ -64,7 +72,7 @@ function ShoppingCartPage() {
               </div>
             )}
 
-            {dataCart.map((value: any) => (
+            {dataCart.map((value: Cart) => (
               <NavLink
                 to={`/${value.product.type.toLowerCase()}/${value.product.id}`}
                 key={value.id}

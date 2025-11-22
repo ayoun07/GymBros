@@ -6,5 +6,4 @@ export async function getUsers() {
     const response = await apiClient.get("/users");
 
     return response.data.map((user: User): User => user);
-
 }
