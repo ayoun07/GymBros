@@ -1,4 +1,4 @@
-import { createContext, useState, useContext, useEffect } from 'react';
+import { createContext, useState, useEffect } from 'react';
 import { getCart } from '../../../service/CartService';
 
 interface CartContextType {
@@ -8,11 +8,10 @@ interface CartContextType {
 
 const defaultValue: CartContextType = {
   cartLength: 0,
-  refreshCart: async () => {},
+  refreshCart: async () => { },
 };
 
 const CartContext = createContext<CartContextType>(defaultValue);
-
 
 export function CartProvider({ children }: { children: React.ReactNode }) {
 
@@ -20,24 +19,22 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 
   const refreshCart = async () => {
     const res = await getCart("1");
-
     setCartLength(res.length);
   };
 
   useEffect(() => {
-    firstRender()
-  }, [])
-  
-  const firstRender = async () => {
-   const res = await getCart("1");
-    setCartLength(res.length);
-  }
+    const fetchData = async () => {
+      const res = await getCart("1");
+      setCartLength(res.length);
+    };
+    fetchData();
+  }, []);
 
   return (
     <CartContext.Provider value={{ cartLength, refreshCart }}>
       {children}
     </CartContext.Provider>
-  )
-
+  );
 }
-export const useCart = () => useContext(CartContext);
+
+export default CartContext;
