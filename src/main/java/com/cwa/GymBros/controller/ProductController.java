@@ -3,6 +3,7 @@ package com.cwa.GymBros.controller;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.cwa.GymBros.model.Product;
@@ -37,6 +38,16 @@ public class ProductController {
             @RequestParam(defaultValue = "4") int limit) {
         return productService.getLimitedProductsByType(limit);
     }
+
+    @GetMapping("/{id}/similar")
+    public ResponseEntity<List<Product>> getSimilarProducts(@PathVariable Long id) {
+    try {
+        List<Product> similarProducts = productService.findSimilarProducts(id);
+        return ResponseEntity.ok(similarProducts);
+    } catch (Exception e) {
+        return ResponseEntity.notFound().build();
+    }
+}
 
     @GetMapping("/search")
     public List<Product> searchProducts(@RequestParam String name){

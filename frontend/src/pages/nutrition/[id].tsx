@@ -1,11 +1,15 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getProductById } from "../../../service/ProductService";
+import { findSimilarProducts, getProductById } from "../../../service/ProductService";
 import { FaArrowAltCircleLeft, FaArrowAltCircleRight } from "react-icons/fa";
-import { addToCart} from "../../../service/CartService.ts";
-import { useCart } from "../../components/cart/CartContext.tsx";
+import { addToCart } from "../../../service/CartService.ts";
 import { FaHeart } from "react-icons/fa6";
 import { getNoticesId, postNotices } from "../../../service/NoticeService.ts";
+import type { Notice } from "../../../models/NoticeModel.ts";
+import { useCart } from "../../components/cart/useCart.tsx";
+import type { Product } from "../../../models/ProductModel.ts";
+import Card from "../../components/card/Card.tsx";
+// import Card from "../../components/card/Card.tsx";
 
 interface dataDetailsProps {
   id: number;
@@ -24,18 +28,13 @@ export default function NutritionDetails() {
   const [quantity, setQuantity] = useState<number>(1);
   const [notices, setNotices] = useState([]);
   const [inputChange, setInputChange] = useState("");
+  const [similarProducts, setSimilarProducts] = useState<Product[]>([]);
   const { refreshCart } = useCart();
 
-
   const addCart = async () => {
-  await addToCart("1", dataDetails?.id.toString() as string);
- await refreshCart(); 
-}
-
-  useEffect(() => {
-    getProductDetails();
-    getNoticeById();
-  }, [id]);
+    await addToCart("1", dataDetails?.id.toString() as string);
+    await refreshCart();
+  };
 
   const getProductDetails = async () => {
     const response = await getProductById(id as string);
@@ -46,21 +45,42 @@ export default function NutritionDetails() {
   };
 
   const getNoticeById = async () => {
-    const response = await getNoticesId(String(id))
-    console.log(response)
+    const response = await getNoticesId(String(id));
+    console.log(response);
     setNotices(response);
-  }
+  };
 
-   const handleChange = async () => {
-    const response = await postNotices({user: 1, title: inputChange, product: id});
+  const handleChange = async () => {
+    const response = await postNotices({
+      userId: 1,
+      title: inputChange,
+      productId: Number(id),
+    });
 
     console.log(response);
-   }
+  };
+
+  const loadSimilarProducts = async () => {
+    const response = await findSimilarProducts(id as string);
+
+    console.log("similaires = ", response);
+
+    setSimilarProducts(response);
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      await getProductDetails();
+      await getNoticeById();
+      await loadSimilarProducts();
+    };
+
+    fetchData();
+  }, [id]);
 
   return (
     dataDetails && (
       <div className="flex flex-col gap-16 mb-32 pt-32">
-
         <div className="flex flex-row max-md:flex-col max-md:align-middle max-md:justify-center w-full justify-center gap-16">
           <section>
             <div className="max-w-140 bg-[#e6e6e6] md:max-w-[35em] md:min-w-[20em] h-full max-sm:w-full max-md:mx-auto max-md:w-2/3 rounded-2xl md:p-4 p-2">
@@ -74,7 +94,6 @@ export default function NutritionDetails() {
                 src={dataDetails.imageUrls[1]}
                 alt=""
               />
-            
             </div>
           </section>
         </div>
@@ -88,7 +107,7 @@ export default function NutritionDetails() {
                 alt=""
               />
               <div className="flex flex-row w-full max-md:grid max-md:grid-cols-3 p-2 gap-4">
-                {dataDetails.imageUrls.map((value: any, idx) => (
+                {dataDetails.imageUrls.slice(0, 3).map((value: string, idx) => (
                   <div
                     className="bg-[#F8F7F4] shadow-2xl sm:min-w-24 max-sm: max-w-32 p-2 rounded-xl"
                     key={idx}
@@ -110,20 +129,23 @@ export default function NutritionDetails() {
               <h1 className="text-4xl  max-lg:text3xl max-md:text-2xl max-md:text-center font-bold uppercase">
                 {dataDetails.name}
               </h1>
-                <div className="flex flex-col gap-2 text-xl font-semibold uppercase">
+              <div className="flex flex-col gap-2 text-xl font-semibold uppercase">
                 <p>prix :</p>
                 <div className="flex flex-row justify-start max-md:justify-center gap-2">
-              <p className="text-2xl font-semibold">
-                {dataDetails.price.toFixed(2)} €
-              </p>
+                  <p className="text-2xl font-semibold">
+                    {dataDetails.price.toFixed(2)} €
+                  </p>
                 </div>
               </div>
               <div className="flex flex-col gap-2 text-xl font-semibold uppercase">
                 <p>couleur :</p>
                 <div className="flex flex-row justify-start max-md:justify-center gap-2">
-                  <div className="w-8 h-8 rounded-2xl border-3 border-transparent cursor-pointer hover:border-[#5390b3] bg-red-600"></div>
-                  <div className="w-8 h-8 rounded-2xl border-3 border-transparent cursor-pointer hover:border-[#5390b3] bg-green-600"></div>
-                  <div className="w-8 h-8 rounded-2xl border-3 border-transparent cursor-pointer hover:border-[#5390b3] bg-purple-600"></div>
+                  <div className="w-8 h-8 rounded-2xl border-3 border-transparent cursor-pointer hover:border-[#5390b3] bg-red-600">
+                  </div>
+                  <div className="w-8 h-8 rounded-2xl border-3 border-transparent cursor-pointer hover:border-[#5390b3] bg-green-600">
+                  </div>
+                  <div className="w-8 h-8 rounded-2xl border-3 border-transparent cursor-pointer hover:border-[#5390b3] bg-purple-600">
+                  </div>
                 </div>
               </div>
               <div className="flex flex-col gap-2 text-xl font-semibold uppercase">
@@ -135,60 +157,88 @@ export default function NutritionDetails() {
               <div className="flex max-md:items-center flex-col gap-2 text-xl font-semibold uppercase">
                 <p>quantité :</p>
                 <div className="flex flex-row bg-gray-200 p-2 w-fit rounded-2xl justify-start items-center max-md:justify-center gap-2">
-                  <FaArrowAltCircleLeft className={ quantity <= 1 ? "text-gray-400" : "text-black" } onClick={() => quantity > 1 && setQuantity(quantity - 1)}/>
+                  <FaArrowAltCircleLeft
+                    className={quantity <= 1 ? "text-gray-400" : "text-black"}
+                    onClick={() => quantity > 1 && setQuantity(quantity - 1)}
+                  />
                   <p className="w-16 text-center">{quantity}</p>
-                  <FaArrowAltCircleRight className={ quantity >= dataDetails.stock ? "text-gray-400" : "text-black" } onClick={() => quantity < 20 && setQuantity(quantity + 1)}/>
+                  <FaArrowAltCircleRight
+                    className={quantity >= dataDetails.stock
+                      ? "text-gray-400"
+                      : "text-black"}
+                    onClick={() => quantity < 20 && setQuantity(quantity + 1)}
+                  />
                 </div>
               </div>
             </div>
             <div className="flex flex-row gap-4 justify-between place-items-center">
-            <button onClick={() => addCart()} className="hover:bg-[#63acd6] cursor-pointer text-white p-4 font-semibold uppercase rounded-2xl w-full bg-[#5390b3] ">
-              ajouter au panier
-            </button>
-            <FaHeart className={`bg-white ${dataDetails.favorite ? "text-red-500" : ""} rounded-2xl z-20 top-2 right-2 p-1`} size={42}
-                   onClick={(e) => {
-                                    e.preventDefault();
-                                    e.stopPropagation();
-                                  }}
-                    />
+              <button
+                onClick={() => addCart()}
+                className="hover:bg-[#63acd6] cursor-pointer text-white p-4 font-semibold uppercase rounded-2xl w-full bg-[#5390b3] "
+              >
+                ajouter au panier
+              </button>
+              <FaHeart
+                className={`bg-white ${dataDetails.favorite ? "text-red-500" : ""
+                  } rounded-2xl z-20 top-2 right-2 p-1`}
+                size={42}
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                }}
+              />
             </div>
           </section>
-          
+        </div>
+        <div className=" flex flex-col align-middle mx-auto gap-4 justify-center">
+          <h3 className="text-2xl font-bold">Produits similaires :</h3>
+          <div className="flex flex-row justify-center gap-8">
+            {
+              similarProducts.slice(0, 4).map((value: Product) => (
+                <Card id={value.id} title={value.name} price={value.price} link={`/`} favorite={value.favorite} type="" image={value.imageUrls[0]} />
+              ))
+            }
+          </div>
         </div>
         <section className=" w-full max-md:mx-auto rounded-2xl bg-[#e6e6e6] shadow-2xl p-4 flex flex-col gap-4">
-  <h2 className="text-2xl font-bold uppercase border-b-2 border-[#5390b3] pb-2 mb-4">Commentaires</h2>
-   <form className="flex flex-col gap-2 mt-4 max-w-140">
-    <textarea
-      placeholder="Ajouter un commentaire..."
-      onChange={(e) => setInputChange(e.target.value)}
-      className="w-full p-3 rounded-2xl border border-gray-300 resize-none focus:outline-none focus:border-[#5390b3]"
-      rows={3}
-    />
-    <button
-      type="submit"
-      onClick={(e) => {
-        e.preventDefault();
-        handleChange()}}
-      className="bg-[#5390b3] hover:bg-[#63acd6] text-white font-semibold uppercase p-3 rounded-2xl transition"
-    >
-      Poster
-    </button>
-  </form>
+          <h2 className="text-2xl font-bold uppercase border-b-2 border-[#5390b3] pb-2 mb-4">
+            Commentaires
+          </h2>
+          <form className="flex flex-col gap-2 mt-4 max-w-140">
+            <textarea
+              placeholder="Ajouter un commentaire..."
+              onChange={(e) => setInputChange(e.target.value)}
+              className="w-full p-3 rounded-2xl border border-gray-300 resize-none focus:outline-none focus:border-[#5390b3]"
+              rows={3}
+            />
+            <button
+              type="submit"
+              onClick={(e) => {
+                e.preventDefault();
+                handleChange();
+              }}
+              className="bg-[#5390b3] hover:bg-[#63acd6] text-white font-semibold uppercase p-3 rounded-2xl transition"
+            >
+              Poster
+            </button>
+          </form>
 
-  <div className="grid grid-cols-3 md:grid-cols-2 max-md:grid-cols-1 gap-4 max-h-64 overflow-y-auto">
-    {notices && notices.map((comment: any) => (
-      <div key={comment.id} className="bg-white rounded-xl p-3 gap-2 shadow-md">
-        <p className="font-semibold">{comment.user.firstname}</p>
-        <p className="text-sm line-clamp-3">{comment.title}</p>
-        <p className="text-sm line-clamp-3">
-  {new Date(comment.createdAt).toLocaleDateString("fr-FR")}
-</p>
-
-      </div>
-    ))}
-  </div>
- 
-</section>
+          <div className="grid grid-cols-3 md:grid-cols-2 max-md:grid-cols-1 gap-4 max-h-64 overflow-y-auto">
+            {notices &&
+              notices.map((comment: Notice) => (
+                <div
+                  key={comment.id}
+                  className="bg-white rounded-xl p-3 gap-2 shadow-md"
+                >
+                  <p className="font-semibold">{comment.user.firstname}</p>
+                  <p className="text-sm line-clamp-3">{comment.title}</p>
+                  <p className="text-sm line-clamp-3">
+                    {new Date(comment.createdAt).toLocaleDateString("fr-FR")}
+                  </p>
+                </div>
+              ))}
+          </div>
+        </section>
       </div>
     )
   );
